@@ -1,6 +1,6 @@
-OpenTripPlanner Traffic Flow v1.0 running on OTP v0.11 [USEAGE GUIDE AND EXAMPLES COMMING SOON]
+OpenTripPlanner Traffic Flow v1.0 running on OTP v0.11 
 ==================================
-Extending OpenTripPlanner and its Analyst module to account for traffic flow. 
+Extending OpenTripPlanner and its Analyst module to account for traffic flow. [USEAGE GUIDE AND EXAMPLES COMMING SOON]
 
 Original Project Link: http://www.opentripplanner.org
 
