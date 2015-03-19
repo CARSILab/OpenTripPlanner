@@ -19,7 +19,9 @@ Note:  Xmx15G refers to the amount of memory in gigabytes that is to be allocate
 Building Graph
 -----------------
 To Build Graph Use:
+```
 java -Xmx2G -jar target/otp.jar --build /path/to/downloads/pdx
+```
 
 Note: a build-old script is provided if you would like to use the graph builder via XML configuration
 
@@ -28,7 +30,8 @@ Mode: Aggregate Flow
 -----------------
 It aggregates routes paths by 15 minute intervals, the routes are saved to disk as GeoJSON.
 
-required properties in properties file
+required properties in config:
+```
 graph_path =	/path/to/graph
 data_path = /path/to/csv/data
 output_path	= /path/where/output/will/be/saved/flow_{}.json
@@ -38,24 +41,28 @@ origin_lat = column number of origin lat
 origin_lon = column number of origin lng
 start_datetime	=	column of the start datetime of the trip
 datetime_format = the format of how datetime is stored ex.yyyy-mm-dd HH:mm:ss
-
+```
 command to run:
+```
 java -Xmx15G -cp otp.jar org.traffic.flow.TrafficFlowMain -a /path/to/file.properties
-
+```
 note:  Xmx15G refers to the amount of memory in megabytes that is to be allocated
 
 Mode: Batch Flow:
 -----------------
 Spits out the distance in meters and route path from every origin to every destination the configuration for this mode is in the xml format example configuration is provided in the examples folder.
 
+command to run:
+```
 java -Xmx15G -cp otp.jar org.traffic.flow.TrafficFlowMain -b /path/to/config.xml
-
+```
 
 Development
 ==================================
-Flow Module is located under:” otp-core/src/main/java/org/traffic"
-compiled output directory: “otp-core/target"
+Flow Module is located under: "otp-core/src/main/java/org/traffic"
+compiled output directory: "otp-core/target"
 
 Terminal command to compile code:
+```
 mvn clean package
-
+```
