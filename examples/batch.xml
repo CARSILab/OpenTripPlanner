@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <context:annotation-config />
+    
+    <bean class="org.opentripplanner.analyst.request.SampleFactory">
+	    <property name="searchRadiusM" value="200" />
+    </bean>
+    <bean class="org.opentripplanner.routing.impl.DefaultRemainingWeightHeuristicFactoryImpl"/>
+    <bean class="org.opentripplanner.routing.algorithm.GenericAStar"/>
+    <bean class="org.opentripplanner.analyst.core.GeometryIndex" />
+    
+    <!-- specify a GraphService, configuring the path to the serialized Graphs -->
+    
+    <bean id="graphService" class="org.opentripplanner.routing.impl.GraphServiceImpl">
+        <property name="path" value="/Users/Naz/Desktop/carson/projects/ireland/" />
+        <property name="defaultRouterId" value="" />
+    </bean>
+
+ 
+<!-- load the origin population from a comma-separated flat text file -->
+
+	<bean id="origins" class="org.opentripplanner.analyst.batch.CSVPopulation">
+        <property name="sourceFilename" value="/Users/Naz/Desktop/carson/projects/ireland/ed_coords.csv" />
+        <property name="labelCol" value="0" />
+        <property name="latCol" value="2" />
+        <property name="lonCol" value="1" />
+        <property name="inputCol" value="3" />       
+        <!-- do not include origins who are NaN, Inf, negative, or outside the transit coverage area --> 
+        <property name="filterChain">
+        	<list>
+        		<bean class="org.opentripplanner.analyst.batch.NanInfFilter" />
+        		<!--
+        		<bean class="org.opentripplanner.analyst.batch.InputClampFilter" />
+        		<bean class="org.opentripplanner.analyst.batch.GraphGeographicFilter">
+			        <property name="useOnlyStops" value="true" />
+			        <property name="bufferMeters" value="2000" />
+        		</bean> 
+        		-->
+        	</list>
+        </property>        
+	</bean>
+	
+	<bean id="destinations" class="org.opentripplanner.analyst.batch.CSVPopulation">
+        <property name="sourceFilename" value="/Users/Naz/Desktop/carson/projects/ireland/ed_coords.csv" />
+        <property name="labelCol" value="0" />
+        <property name="latCol" value="2" />
+        <property name="lonCol" value="1" />
+        <property name="inputCol" value="3" />
+        <!-- do not include origins who are NaN, Inf, negative, or outside the transit coverage area --> 
+        <property name="filterChain">
+        	<list>
+        		<bean class="org.opentripplanner.analyst.batch.NanInfFilter" />
+        	</list>
+        </property>        
+	</bean>
+
+
+
+<!-- define the main batch processor, which will build one shortest path tree from each origin to all destinations -->
+	
+	<bean id="batchProcessor" class="org.traffic.flow.collector.BatchCollector">
+        <property name="outputPath" value="/Users/Naz/Desktop/carson/projects/ireland/output/flow_{}.json" />
+        <property name="date" value="2012-07-12" />
+        <property name="time" value="08:00 AM" />
+        <property name="timeZone" value="America/New_York" />
+	</bean>
+
+	<bean id="prototypeRoutingRequest" class="org.opentripplanner.routing.core.RoutingRequest">
+		<!-- Set default routing parameters here -->
+        <property name="routerId" value="" />
+        <property name="maxWalkDistance" value="6000" />
+        <property name="clampInitialWait" value="1800" />
+        <property name="arriveBy" value="false" />
+        <property name="modes" value="CAR" />
+	</bean>
+
+</beans>
