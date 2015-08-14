@@ -32,15 +32,16 @@ It aggregates routes paths by 15 minute intervals, the routes are saved to disk 
 
 required properties in config:
 ```
-graph_path =	/path/to/graph
+graph_path = /path/to/graph
 data_path = /path/to/csv/data
 output_path	= /path/where/output/will/be/saved/flow_{}.json
 dest_lat = column number of destination lat
 dest_lon = column number of destination lng
 origin_lat = column number of origin lat
 origin_lon = column number of origin lng
-start_datetime	=	column of the start datetime of the trip
+start_datetime	= column of the start datetime of the trip
 datetime_format = the format of how datetime is stored ex.yyyy-mm-dd HH:mm:ss
+route_mode = (Optional) sets the type of paths to find, default is CAR
 ```
 command to run:
 ```

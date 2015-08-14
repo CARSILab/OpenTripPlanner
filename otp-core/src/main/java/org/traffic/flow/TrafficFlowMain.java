@@ -39,11 +39,6 @@ public class TrafficFlowMain {
 			return;
 		}
 		
-		//runCollector("/Users/Naz/Desktop/collection.properties");
-		//String configFile = "/Users/Naz/Desktop/carson/projects/ireland/batch-context.xml";
-		//runBatchCollector(configFile);
-		
-		 
 	}
 	
 	public static void runBatchCollector(String configFile){
@@ -73,7 +68,7 @@ public class TrafficFlowMain {
 		route.clampInitialWait = 1800;
 		route.arriveBy = false;
 		route.batch = false;
-		route.modes = new TraverseModeSet("CAR");
+		
 		
 		int searchCutOff = 0;
 		
@@ -83,6 +78,13 @@ public class TrafficFlowMain {
 			
 			if(prop.getProperty("graph_path") == null || prop.getProperty("data_path") == null || prop.getProperty("output_path") == null){
 				throw new IOException("Unable to find required properties from file:"+configFile);
+			}
+			
+			//seting route mode
+			if(prop.getProperty("route_mode") != null){
+				route.modes = new TraverseModeSet(prop.getProperty("route_mode"));
+			}else{
+				route.modes = new TraverseModeSet("CAR");
 			}
 			
 			graphPath = prop.getProperty("graph_path");

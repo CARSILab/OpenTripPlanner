@@ -63,7 +63,7 @@ public class Collector {
 	public Collector(String graphPath, String outpoutPath,CSVRequestSetting setting,RoutingRequest route){
 		
 		if (!outpoutPath.contains("{}")) {
-            System.out.println("[ERROR] output filename must contain placeholder '{}'.");
+            Log.error("[ERROR] output filename must contain placeholder '{}'.");
             System.exit(-1);
         }
 		
