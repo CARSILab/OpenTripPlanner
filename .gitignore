@@ -19,6 +19,7 @@ otp-openlayers-client/src/main/webapp/js/otp-min.js
 *.iml
 *.iws
 *.swp
+*.DS_Store
 .externalToolBuilders
 gen-java/
 gen-javabean/
@@ -26,3 +27,4 @@ gen-py/
 .idea/
 .sonar
 _site/
+*.DS_Store
